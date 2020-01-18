@@ -1,0 +1,22 @@
+﻿@page "/"
+@inject NavigationManager NavManager
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<hr />
+
+<input @bind="_startingCount" />
+
+<button @onclick="@(() => NavManager.NavigateTo($"counter/{_startingCount}"))">
+    Go To Counter (Route Parameter)
+</button>
+
+<button @onclick="@(() => NavManager.NavigateTo($"counter?startingcount={_startingCount}"))">
+    Go To Counter (Querystring)
+</button>
+
+@code {
+    private int _startingCount;
+}

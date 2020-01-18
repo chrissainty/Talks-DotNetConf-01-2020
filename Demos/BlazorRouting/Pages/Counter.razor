@@ -1,0 +1,28 @@
+﻿@page "/counter"
+@page "/counter/{StartingCount:int}"
+@inject NavigationManager NavManager
+
+<h1>Counter</h1>
+
+<p>Current count: @StartingCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+    [Parameter] public int StartingCount { get; set; }
+
+    protected override void OnInitialized()
+    {
+        var uri = NavManager.ToAbsoluteUri(NavManager.Uri);
+
+        if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("startingcount", out var _startingCount))
+        {
+            StartingCount = Convert.ToInt32(_startingCount);
+        }
+    }
+
+    private void IncrementCount()
+    {
+        StartingCount++;
+    }
+}
